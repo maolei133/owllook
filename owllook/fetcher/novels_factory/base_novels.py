@@ -5,7 +5,7 @@
 import aiohttp
 import async_timeout
 
-from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES, LATEST_RULES
+from owllook.config import CONFIG, LOGGER, BLACK_DOMAIN, RULES, LATEST_RULES, SITE
 
 
 class BaseNovels:
@@ -19,6 +19,7 @@ class BaseNovels:
         self.latest_rules = LATEST_RULES
         self.logger = logger if logger else LOGGER
         self.rules = RULES
+        self.site = SITE
 
     async def fetch_url(self, url, params, headers):
         """
@@ -47,11 +48,14 @@ class BaseNovels:
     async def start(cls, novels_name):
         return await cls().novels_search(novels_name)
 
-    async def data_extraction(self, html):
+    async def data_extraction(self, html, site):
         """
         小说信息抓取函数
         :return:
         """
+        raise NotImplementedError
+    
+    async def data_get(self, novels_name, headers, val):
         raise NotImplementedError
 
     async def novels_search(self, novels_name):

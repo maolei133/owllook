@@ -1,7 +1,7 @@
 [[source]]
 verify_ssl = true
 name = "pypi"
-url = "https://pypi.douban.com/simple/"
+url = "https://mirrors.aliyun.com/pypi/simple/"
 
 [requires]
 python_version = "3.6"
@@ -19,13 +19,13 @@ gunicorn = "*"
 Jinja2 = "==2.11.3"
 motor = "==1.1"
 numpy = "*"
-requests = ">=2.20.0"
+requests = "==2.20.0"
 Sanic = "==0.5.1"
 sanic_session = "==0.1.2"
 schedule = "*"
 uvloop = "*"
 pytest = "*"
-pymongo = "*"
+pymongo = "==3.12.3"
 aiofiles = "*"
 pyquery = "*"
 ruia-ua = "*"

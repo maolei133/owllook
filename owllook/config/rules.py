@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 from collections import namedtuple
 
+Site = namedtuple('Site', 'url search_name param_name class_name a_name')
+SITE = {
+    'www.biquge.info': Site('https://www.biquge.info', '/modules/article/search.php', 'searchkey', 'grid', 'td a'),
+    'www.81zw.com': Site('https://www.81zw.com', '/search.php', 'q', 'result-game-item-detail', 'h3 a'),
+}
+
+
 #######################################  规则  ###########################################
 # DOMAIN
 BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', 'yunqi.qq.com', 'chuangshi.qq.com',
@@ -62,7 +69,7 @@ REPLACE_RULES = {
 }
 
 # 搜索引擎检索优先级
-ENGINE_PRIORITY = ['360', 'baidu', 'bing', 'duck_go']
+ENGINE_PRIORITY = ['custom', '360', 'duck_go', 'baidu', 'bing']
 
 # Rules
 Rules = namedtuple('Rules', 'content_url chapter_selector content_selector')

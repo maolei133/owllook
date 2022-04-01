@@ -67,11 +67,6 @@ async def chapter(request):
         return text('解析失败，请将失败页面反馈给本站，请重新刷新一次，或者访问源网页：{url}'.format(url=url))
 
 
-@novels_bp.route("/owllook_donate")
-async def donate(request):
-    return template('donate.html')
-
-
 @novels_bp.route("/owllook_feedback")
 async def feedback(request):
     return template('feedback.html')
@@ -286,28 +281,10 @@ async def owllook_search(request):
         parse_result = await get_novels_info(class_name='duck_go', novels_name=novels_name)
     else:
         for each_engine in ENGINE_PRIORITY:
-            # for bing
-            if each_engine == "bing":
-                novels_name = "{name} 小说 阅读 最新章节".format(name=name)
-                parse_result = await get_novels_info(class_name='bing', novels_name=novels_name)
-                if parse_result:
-                    break
-            # for 360 so
-            if each_engine == "360":
-                novels_name = "{name} 小说 最新章节".format(name=name)
-                parse_result = await get_novels_info(class_name='so', novels_name=novels_name)
-                if parse_result:
-                    break
-            # for baidu
-            if each_engine == "baidu":
-                novels_name = 'intitle:{name} 小说 阅读'.format(name=name)
-                parse_result = await get_novels_info(class_name='baidu', novels_name=novels_name)
-                if parse_result:
-                    break
-            # for duckduckgo
-            if each_engine == "duck_go":
-                novels_name = '{name} 小说 阅读 最新章节'.format(name=name)
-                parse_result = await get_novels_info(class_name='duck_go', novels_name=novels_name)
+            # for custom
+            if each_engine == "custom":
+                novels_name = " {name}".format(name=name)
+                parse_result = await get_novels_info(class_name='custom', novels_name=novels_name)
                 if parse_result:
                     break
     if parse_result:

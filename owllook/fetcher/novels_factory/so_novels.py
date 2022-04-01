@@ -66,6 +66,11 @@ class SoNovels(BaseNovels):
             'User-Agent': await get_random_user_agent(),
             'Referer': "http://www.so.com/haosou.html?src=home"
         }
+        
+        # site_name = " OR ".join(["site:" + x for x in self.site])
+        # search_name = site_name + novels_name
+        # self.logger.info('search name: {}'.format(search_name))
+        
         params = {'ie': 'utf-8', 'src': 'noscript_home', 'shb': 1, 'q': novels_name, }
         html = await self.fetch_url(url=url, params=params, headers=headers)
         if html:

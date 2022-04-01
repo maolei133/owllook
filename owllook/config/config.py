@@ -33,6 +33,7 @@ class Config():
     SO_URL = "https://www.so.com/s"
     BY_URL = "https://www.bing.com/search"
     DUCKGO_URL = "https://duckduckgo.com/html"
+    GOOGLE_URL = "https://www.google.com/search"
 
     REMOTE_SERVER = {
         'proxy_server': 'http://0.0.0.0:8002/'
