@@ -41,6 +41,9 @@ class CustomNovels(BaseNovels):
                 netloc = urlparse(url).netloc
             if not url or 'baidu' in url or 'baike.so.com' in url or netloc in self.black_domain:
                 return None
+            if site.intercept_str == '1':
+                title = html.get('title', None)
+                url = "/".join(url.split("/")[:-1]) + ".html"
             is_parse = 1 if netloc in self.rules.keys() else 0
             is_recommend = 1 if netloc in self.latest_rules.keys() else 0
             time = ''
@@ -62,7 +65,6 @@ class CustomNovels(BaseNovels):
         if html:
             soup = BeautifulSoup(html, 'html5lib')
             result = soup.find(class_=val.class_name)
-            print(result)
             a_list = result.select(val.a_name)
             if a_list:
                 extra_tasks = [self.data_extraction(html=i, site=val) for i in a_list]

@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 from collections import namedtuple
 
-Site = namedtuple('Site', 'url search_name param_name class_name a_name')
+Site = namedtuple('Site', 'url search_name param_name class_name a_name intercept_str')
 SITE = {
-    "www.miaobige.com": Site('https://www.miaobige.com', '/so/result.html', 'searchkey', 'l', '.zi_n a'),
-    'www.81zw.com': Site('https://www.81zw.com', '/search.php', 'q', 'result-list', '.result-game-item-title a'),
-    'www.biquge.info': Site('https://www.biquge.info', '/modules/article/search.php', 'searchkey', 'grid', '.odd a'),
-    'www.23us.cc': Site('https://www.23us.cc', '/ar.php', 'keyWord', 'row', '.s2 a'),
-    'www.xxbiqudu.com': Site('https://www.xxbiqudu.com', '/modules/article/search.php', 'searchkey', 'grid', '.odd a'),
-    'www.e8zw.com': Site('https://www.e8zw.com', '/ar.php', 'keyWord', 'row', '.s2 a'),
+    "www.miaobige.com": Site('https://www.miaobige.com', '/so/result.html', 'searchkey', 'l', 'li > a', '1'),
+    'www.81zw.com': Site('https://www.81zw.com', '/search.php', 'q', 'result-list', '.result-game-item-title a', '0'),
+    'www.biquge.info': Site('https://www.biquge.info', '/modules/article/search.php', 'searchkey', 'grid', '.odd a', '0'),
+    'www.xxbiqudu.com': Site('https://www.xxbiqudu.com', '/modules/article/search.php', 'searchkey', 'grid', '.odd a', '0'),
 }
 
 
@@ -46,10 +44,10 @@ BLACK_DOMAIN = ['www.17k.com', 'mm.17k.com', 'www.xs8.cn', 'www.zongheng.com', '
 
 # 针对某些网站检索出来的地址和真正的目录地址不一样从而进行替换
 REPLACE_RULES = {
-    "www.miaobige.com": {
-        'old': 'miaobige.com/book/',
-        'new': 'miaobige.com/read/'
-    },
+    # "www.miaobige.com": {
+    #     'old': 'miaobige.com/book/',
+    #     'new': 'miaobige.com/read/'
+    # },
     "www.5ccc.net": {
         'old': '5ccc.net/wksz_info/',
         'new': '5ccc.net/xiaoshuo/'
@@ -459,7 +457,7 @@ RULES = {
     # 已解析
     'www.biqugebook.com': Rules('http://www.biqugebook.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
-    'www.e8zw.com': Rules('0', {'class': 'box_con'}, {'id': 'content'}),
+    'www.e8zw.com': Rules('0', {'class': 'section-box'}, {'id': 'content'}),
     # 已解析
     'www.xqqxs.com': Rules('0', {'class': 'box_con'}, {'class': 'content'}),
     # 已解析
@@ -624,7 +622,7 @@ RULES = {
     # 已解析
     'www.tycqxs.com': Rules('http://www.tycqxs.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
-    'www.miaobige.com': Rules('https://www.miaobige.com/', {'id': 'readerlists'}, {'id': 'content'}),
+    'www.miaobige.com': Rules('1', {'id': 'list'}, {'id': 'content'}),
     # 已解析
     'www.dashubao.net': Rules('0', {'class': 'ml_main'}, {'class': 'yd_text2'}),
     # 已解析
@@ -634,7 +632,7 @@ RULES = {
     # 已解析
     'www.2952.cc': Rules('0', {'class': 'inner'}, {'id': 'content'}),
     # 已解析
-    'www.23us.cc': Rules('0', {'class': 'inner'}, {'id': 'content'}),
+    'www.23us.cc': Rules('0', {'class': 'section-box'}, {'id': 'content'}),
     # 已解析
     'www.13xs.com': Rules('0', {'class': 'box_con'}, {'id': 'booktext'}),
     # 已解析

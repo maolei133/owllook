@@ -123,17 +123,6 @@ async def books(request):
         return redirect('/')
 
 
-@admin_bp.route("/lcxs")
-async def lcxs(request):
-    user = request['session'].get('user', None)
-    if user:
-        return template('admin_lcxs.html',
-                        is_login=1,
-                        user=user)
-    else:
-        return redirect('/')
-
-
 @admin_bp.route("/search_user")
 async def search_user(request):
     user = request['session'].get('user', None)
