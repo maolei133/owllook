@@ -89,12 +89,12 @@ class CustomNovels(BaseNovels):
         
         values = self.site.values()
         res = [await self.data_get(novels_name=novels_name,headers=headers,val=val) for val in values]
-        print(res)
+        # print(res)
         return list(itertools.chain.from_iterable(filter(None, res)))
         
 
 
-# @cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
+@cached(ttl=259200, key_from_attr='novels_name', serializer=PickleSerializer(), namespace="novels_name")
 async def start(novels_name):
     """
     Start spider
