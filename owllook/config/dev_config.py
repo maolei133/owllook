@@ -15,7 +15,7 @@ class DevConfig(Config):
     REDIS_DICT = dict(
         IS_CACHE=True,
         REDIS_ENDPOINT=os.getenv('REDIS_ENDPOINT', "localhost"),
-        REDIS_PORT=int(os.getenv('REDIS_PORT', 6379)),
+        REDIS_PORT=int(os.getenv('REDIS_PORT', 31702)),
         REDIS_PASSWORD=os.getenv('REDIS_PASSWORD', None),
         CACHE_DB=0,
         SESSION_DB=1,
@@ -23,7 +23,7 @@ class DevConfig(Config):
     )
     MONGODB = dict(
         MONGO_HOST=os.getenv('MONGO_HOST', ""),
-        MONGO_PORT=int(os.getenv('MONGO_PORT', 27017)),
+        MONGO_PORT=int(os.getenv('MONGO_PORT', 30578)),
         MONGO_USERNAME=os.getenv('MONGO_USERNAME', ""),
         MONGO_PASSWORD=os.getenv('MONGO_PASSWORD', ""),
         DATABASE='owllook',

@@ -2,7 +2,7 @@ import asyncio,aiohttp,sys
 sys.path.append("/opt/codes/owllook")
 
 from aiohttp import ClientSession
-from owllook.config import RULES
+from owllook.config import LATEST_RULES
  
 async def fetch_status(session: ClientSession, url: str) -> int:
     try:
@@ -19,6 +19,6 @@ async def main(url: str):
  
  
 if __name__ == '__main__':
-    urls = ["https://" + x for x in RULES.keys()]
+    urls = ["https://" + x for x in LATEST_RULES.keys()]
     for url in urls:
         asyncio.get_event_loop().run_until_complete(main(url))

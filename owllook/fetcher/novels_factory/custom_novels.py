@@ -2,7 +2,9 @@
 """
  Created by howie.hu at 2018/5/28.
 """
-import asyncio,sys
+import asyncio,sys,itertools
+
+from soupsieve import select
 sys.path.append("/opt/codes/owllook")
 
 from aiocache.serializers import PickleSerializer
@@ -27,13 +29,16 @@ class CustomNovels(BaseNovels):
         try:
             # 2017.09.09 修改 更加全面地获取title && url
             try:
-                title = html.select('a')[0].get_text()
-                url = site.url + html.select('a')[0].get('href', None)
+                title = html.get_text()
+                url = html.get('href', None)
             except Exception as e:
                 self.logger.exception(e)
                 return None
             
             netloc = urlparse(url).netloc
+            if not netloc:
+                url = site.url + url
+                netloc = urlparse(url).netloc
             if not url or 'baidu' in url or 'baike.so.com' in url or netloc in self.black_domain:
                 return None
             is_parse = 1 if netloc in self.rules.keys() else 0
@@ -54,17 +59,23 @@ class CustomNovels(BaseNovels):
         url = val.url + val.search_name
         params = {val.param_name: novels_name, }
         html = await self.fetch_url(url=url, params=params, headers=headers)
-        print(html)
+        if html:
+            soup = BeautifulSoup(html, 'html5lib')
+            result = soup.find(class_=val.class_name)
+            print(result)
+            a_list = result.select(val.a_name)
+            if a_list:
+                extra_tasks = [self.data_extraction(html=i, site=val) for i in a_list]
+                tasks = [asyncio.ensure_future(i) for i in extra_tasks]
+                done_list, pending_list = await asyncio.wait(tasks)
+                res = [task.result() for task in done_list if task.result()]
+                return res
+            else:
+                return None
+        else:
+            return None
         
-        soup = BeautifulSoup(html, 'html5lib')
-        result = soup.find(class_=val.class_name)
-        # print(result)
         
-        a = result.select_one(val.a_name)
-        # print(a)        
-        return await self.data_extraction(html=result, site=val)
-
-
     async def novels_search(self, novels_name):
         """
         小说搜索入口函数
@@ -75,8 +86,9 @@ class CustomNovels(BaseNovels):
         }
         
         values = self.site.values()
-        res = [await self.data_get(novels_name=novels_name,headers=headers,val=val) for val in values]    
-        return res
+        res = [await self.data_get(novels_name=novels_name,headers=headers,val=val) for val in values]
+        print(res)
+        return list(itertools.chain.from_iterable(filter(None, res)))
         
 
 
@@ -91,7 +103,7 @@ async def start(novels_name):
 
 def main():
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(start('雪中悍刀行'))
+    loop.run_until_complete(start('聊斋之天罡三十六神通'))
 
 
 if __name__ == '__main__':

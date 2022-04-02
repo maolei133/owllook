@@ -3,8 +3,12 @@ from collections import namedtuple
 
 Site = namedtuple('Site', 'url search_name param_name class_name a_name')
 SITE = {
-    'www.biquge.info': Site('https://www.biquge.info', '/modules/article/search.php', 'searchkey', 'grid', 'td a'),
-    'www.81zw.com': Site('https://www.81zw.com', '/search.php', 'q', 'result-game-item-detail', 'h3 a'),
+    "www.miaobige.com": Site('https://www.miaobige.com', '/so/result.html', 'searchkey', 'l', '.zi_n a'),
+    'www.81zw.com': Site('https://www.81zw.com', '/search.php', 'q', 'result-list', '.result-game-item-title a'),
+    'www.biquge.info': Site('https://www.biquge.info', '/modules/article/search.php', 'searchkey', 'grid', '.odd a'),
+    'www.23us.cc': Site('https://www.23us.cc', '/ar.php', 'keyWord', 'row', '.s2 a'),
+    'www.xxbiqudu.com': Site('https://www.xxbiqudu.com', '/modules/article/search.php', 'searchkey', 'grid', '.odd a'),
+    'www.e8zw.com': Site('https://www.e8zw.com', '/ar.php', 'keyWord', 'row', '.s2 a'),
 }
 
 
@@ -152,7 +156,7 @@ LATEST_RULES = {
     "www.ttzw.com": PLAN_01,
     "www.zanghaihuatxt.com": PLAN_01,
     "www.kuxiaoshuo.com": PLAN_01,
-    "www.biqudu.com": PLAN_01,
+    "www.xxbiqudu.com": PLAN_01,
     "www.biqugeg.com": PLAN_01,
     "www.23txt.com": PLAN_01,
     "www.baquge.tw": PLAN_01,
@@ -303,7 +307,7 @@ RULES = {
     # 已解析
     'www.baquge.tw': Rules('http://www.baquge.tw/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
-    'www.biqudu.com': Rules('https://www.biqudu.com/', {'class': 'box_con'}, {'id': 'content'}),
+    'www.xxbiqudu.com': Rules('https://www.xxbiqudu.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
     'www.biqugeg.com': Rules('http://www.biqugeg.com/', {'class': 'box_con'}, {'id': 'content'}),
     # 已解析
